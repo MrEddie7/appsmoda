@@ -1,0 +1,35 @@
+type Era @table {
+  name: String!
+  startYear: Int!
+  endYear: Int!
+  description: String!
+  imageUrl: String
+}
+
+type Garment @table {
+  name: String!
+  description: String!
+  historicalSignificance: String!
+  materialComposition: String
+  imageUrl: String
+  era: Era!
+}
+
+type User @table {
+  username: String!
+  email: String!
+  bio: String
+  profileImageUrl: String
+}
+
+type Bookmark @table {
+  user: User!
+  garment: Garment!
+}
+
+type Contribution @table {
+  content: String!
+  status: String!
+  user: User!
+  garment: Garment!
+}

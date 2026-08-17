@@ -1,0 +1,526 @@
+extend type Bookmark {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Bookmark", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Bookmark` table.
+  """
+  _count: Int! @fdc_generated(from: "Bookmark.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Bookmark` table where the `garmentId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  garmentId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Bookmark.garmentId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Bookmark` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Bookmark.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Bookmark` table where the `userId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  userId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Bookmark.userId", purpose: QUERY_COUNT)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "Bookmark.id", purpose: ENTITY_ID)
+}
+extend type Contribution {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Contribution", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Contribution` table.
+  """
+  _count: Int! @fdc_generated(from: "Contribution.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Contribution` table where the `content` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  content_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Contribution.content", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Contribution` table where the `garmentId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  garmentId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Contribution.garmentId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Contribution` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Contribution.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Contribution` table where the `status` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  status_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Contribution.status", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Contribution` table where the `userId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  userId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Contribution.userId", purpose: QUERY_COUNT)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "Contribution.id", purpose: ENTITY_ID)
+}
+extend type Era {
+  """
+  ✨ List `Garment` objects in a one-to-many relationship (where `Garment`.`era` is this object).
+  """
+  garments_on_era(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Garment_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Garment_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Garment_Having
+  ): [Garment!]! @fdc_generated(from: "Garment.era", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Era", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Era` table.
+  """
+  _count: Int! @fdc_generated(from: "Era.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Era` table where the `description` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  description_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Era.description", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Era` table where the `endYear` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  endYear_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Era.endYear", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Era` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Era.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Era` table where the `imageUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  imageUrl_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Era.imageUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Era` table where the `name` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  name_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Era.name", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Era` table where the `startYear` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  startYear_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Era.startYear", purpose: QUERY_COUNT)
+  """
+  ✨ Sum the `endYear` field in the `Era` table.
+  """
+  endYear_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "Era.endYear", purpose: QUERY_SUM)
+  """
+  ✨ Sum the `startYear` field in the `Era` table.
+  """
+  startYear_sum(
+    """
+    Set to true to sum the distinct values.
+    """
+    distinct: Boolean = false
+  ): Int @fdc_generated(from: "Era.startYear", purpose: QUERY_SUM)
+  """
+  ✨ Average the `endYear` field in the `Era` table.
+  """
+  endYear_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Era.endYear", purpose: QUERY_AVG)
+  """
+  ✨ Average the `startYear` field in the `Era` table.
+  """
+  startYear_avg(
+    """
+    Set to true to average the distinct values.
+    """
+    distinct: Boolean = false
+  ): Float @fdc_generated(from: "Era.startYear", purpose: QUERY_AVG)
+  """
+  ✨ Minimum of the `endYear` field in the `Era` table.
+  """
+  endYear_min: Int @fdc_generated(from: "Era.endYear", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `startYear` field in the `Era` table.
+  """
+  startYear_min: Int @fdc_generated(from: "Era.startYear", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `endYear` field in the `Era` table.
+  """
+  endYear_max: Int @fdc_generated(from: "Era.endYear", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `startYear` field in the `Era` table.
+  """
+  startYear_max: Int @fdc_generated(from: "Era.startYear", purpose: QUERY_MAX)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "Era.id", purpose: ENTITY_ID)
+}
+extend type Garment {
+  """
+  ✨ List `Bookmark` objects in a one-to-many relationship (where `Bookmark`.`garment` is this object).
+  """
+  bookmarks_on_garment(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Bookmark_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Bookmark_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Bookmark_Having
+  ): [Bookmark!]! @fdc_generated(from: "Bookmark.garment", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Contribution` objects in a one-to-many relationship (where `Contribution`.`garment` is this object).
+  """
+  contributions_on_garment(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Contribution_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Contribution_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Contribution_Having
+  ): [Contribution!]! @fdc_generated(from: "Contribution.garment", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Garment", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Garment` table.
+  """
+  _count: Int! @fdc_generated(from: "Garment.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `description` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  description_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.description", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `eraId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  eraId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.eraId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `historicalSignificance` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  historicalSignificance_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.historicalSignificance", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `imageUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  imageUrl_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.imageUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `materialComposition` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  materialComposition_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.materialComposition", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Garment` table where the `name` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  name_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Garment.name", purpose: QUERY_COUNT)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "Garment.id", purpose: ENTITY_ID)
+}
+extend type User {
+  """
+  ✨ List `Bookmark` objects in a one-to-many relationship (where `Bookmark`.`user` is this object).
+  """
+  bookmarks_on_user(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Bookmark_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Bookmark_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Bookmark_Having
+  ): [Bookmark!]! @fdc_generated(from: "Bookmark.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Contribution` objects in a one-to-many relationship (where `Contribution`.`user` is this object).
+  """
+  contributions_on_user(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Contribution_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Contribution_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Contribution_Having
+  ): [Contribution!]! @fdc_generated(from: "Contribution.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "User", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `User` table.
+  """
+  _count: Int! @fdc_generated(from: "User.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `bio` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  bio_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.bio", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `email` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  email_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.email", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `profileImageUrl` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  profileImageUrl_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.profileImageUrl", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `username` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  username_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.username", purpose: QUERY_COUNT)
+  """
+  A generated field that is used for caching results in SDKs.
+  """
+  _id: ID! @fdc_generated(from: "User.id", purpose: ENTITY_ID)
+}

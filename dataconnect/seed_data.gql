@@ -1,0 +1,86 @@
+mutation SeedDatabase @transaction {
+  era_insertMany(data: [
+    {
+      id: "71e54457-3f30-4e3f-b3a6-8484196395e1",
+      name: "Victorian Era",
+      startYear: 1837,
+      endYear: 1901,
+      description: "Period of rapid industrial, political, and military change."
+    },
+    {
+      id: "71e54457-3f30-4e3f-b3a6-8484196395e2",
+      name: "Roaring Twenties",
+      startYear: 1920,
+      endYear: 1929,
+      description: "A decade of economic prosperity and social change."
+    },
+    {
+      id: "71e54457-3f30-4e3f-b3a6-8484196395e3",
+      name: "Mid-Century Modern",
+      startYear: 1945,
+      endYear: 1969,
+      description: "Post-war design and fashion shift."
+    }
+  ])
+  user_insertMany(data: [
+    {
+      id: "8c792942-012e-4b72-887e-e24c7f07e5e1",
+      username: "fashion_hist",
+      email: "hist@example.com",
+      bio: "I love vintage style."
+    },
+    {
+      id: "8c792942-012e-4b72-887e-e24c7f07e5e2",
+      username: "style_guru",
+      email: "guru@example.com",
+      bio: "Collecting trends through time."
+    }
+  ])
+  garment_insertMany(data: [
+    {
+      id: "9d365289-e16e-4f71-a068-18e4785465e1",
+      name: "Corset",
+      description: "Restrictive undergarment.",
+      historicalSignificance: "Iconic to Victorian silhouette.",
+      eraId: "71e54457-3f30-4e3f-b3a6-8484196395e1"
+    },
+    {
+      id: "9d365289-e16e-4f71-a068-18e4785465e2",
+      name: "Flapper Dress",
+      description: "Sleeveless shift dress.",
+      historicalSignificance: "Symbol of jazz age emancipation.",
+      eraId: "71e54457-3f30-4e3f-b3a6-8484196395e2"
+    },
+    {
+      id: "9d365289-e16e-4f71-a068-18e4785465e3",
+      name: "Swing Coat",
+      description: "A-line coat style.",
+      historicalSignificance: "Representing post-war fashion freedom.",
+      eraId: "71e54457-3f30-4e3f-b3a6-8484196395e3"
+    }
+  ])
+  bookmark_insertMany(data: [
+    {
+      userId: "8c792942-012e-4b72-887e-e24c7f07e5e1",
+      garmentId: "9d365289-e16e-4f71-a068-18e4785465e1"
+    },
+    {
+      userId: "8c792942-012e-4b72-887e-e24c7f07e5e2",
+      garmentId: "9d365289-e16e-4f71-a068-18e4785465e2"
+    }
+  ])
+  contribution_insertMany(data: [
+    {
+      content: "Excellent overview of Victorian garments.",
+      status: "APPROVED",
+      userId: "8c792942-012e-4b72-887e-e24c7f07e5e1",
+      garmentId: "9d365289-e16e-4f71-a068-18e4785465e1"
+    },
+    {
+      content: "Needs more info on material.",
+      status: "PENDING",
+      userId: "8c792942-012e-4b72-887e-e24c7f07e5e2",
+      garmentId: "9d365289-e16e-4f71-a068-18e4785465e3"
+    }
+  ])
+}

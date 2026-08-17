@@ -1,0 +1,87 @@
+mutation CreateEra @auth(level: USER) {
+  era_insert(data: { name: "Victorian", startYear: 1837, endYear: 1901, description: "The era of Queen Victoria's reign." })
+}
+
+mutation UpdateEra($id: UUID!, $description: String!) @auth(level: USER) {
+  era_update(id: $id, data: { description: $description })
+}
+
+mutation DeleteEra($id: UUID!) @auth(level: USER) {
+  era_delete(id: $id)
+}
+
+query GetEra($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly accessible historical data.") {
+  era(id: $id) { name startYear endYear description imageUrl }
+}
+
+query ListEras @auth(level: PUBLIC, insecureReason: "Publicly accessible historical data.") {
+  eras { name startYear endYear description }
+}
+
+mutation CreateGarment($name: String!, $description: String!, $historicalSignificance: String!, $eraId: UUID!) @auth(level: USER) {
+  garment_insert(data: { name: $name, description: $description, historicalSignificance: $historicalSignificance, eraId: $eraId })
+}
+
+mutation UpdateGarment($id: UUID!, $description: String!) @auth(level: USER) {
+  garment_update(id: $id, data: { description: $description })
+}
+
+mutation DeleteGarment($id: UUID!) @auth(level: USER) {
+  garment_delete(id: $id)
+}
+
+query GetGarment($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly accessible historical data.") {
+  garment(id: $id) { name description historicalSignificance era { name } }
+}
+
+query ListGarments @auth(level: PUBLIC, insecureReason: "Publicly accessible historical data.") {
+  garments { name description historicalSignificance }
+}
+
+mutation CreateUser($username: String!, $email: String!) @auth(level: USER) {
+  user_insert(data: { id_expr: "auth.uid", username: $username, email: $email })
+}
+
+mutation UpdateUser($bio: String!) @auth(level: USER) {
+  user_update(key: { id_expr: "auth.uid" }, data: { bio: $bio })
+}
+
+mutation DeleteUser @auth(level: USER) {
+  user_delete(key: { id_expr: "auth.uid" })
+}
+
+query GetMyProfile @auth(level: USER) {
+  user(key: { id_expr: "auth.uid" }) { username email bio profileImageUrl }
+}
+
+query ListUsers @auth(level: USER) {
+  users { username bio }
+}
+
+mutation CreateBookmark($garmentId: UUID!) @auth(level: USER) {
+  bookmark_insert(data: { userId_expr: "auth.uid", garmentId: $garmentId })
+}
+
+mutation DeleteBookmark($id: UUID!) @auth(level: USER) {
+  bookmark_delete(id: $id)
+}
+
+query GetMyBookmarks @auth(level: USER) {
+  bookmarks(where: { userId: { eq_expr: "auth.uid" } }) { garment { name } }
+}
+
+mutation CreateContribution($garmentId: UUID!, $content: String!) @auth(level: USER) {
+  contribution_insert(data: { userId_expr: "auth.uid", garmentId: $garmentId, content: $content, status: "pending" })
+}
+
+mutation UpdateContribution($id: UUID!, $content: String!) @auth(level: USER) {
+  contribution_update(id: $id, data: { content: $content })
+}
+
+mutation DeleteContribution($id: UUID!) @auth(level: USER) {
+  contribution_delete(id: $id)
+}
+
+query ListMyContributions @auth(level: USER) {
+  contributions(where: { userId: { eq_expr: "auth.uid" } }) { content status garment { name } }
+}

@@ -1,0 +1,562 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `Bookmark` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  bookmark_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Bookmark_Data!
+  ): Bookmark_KeyOutput! @fdc_generated(from: "Bookmark", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Contribution` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  contribution_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Contribution_Data!
+  ): Contribution_KeyOutput! @fdc_generated(from: "Contribution", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Era` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  era_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Era_Data!
+  ): Era_KeyOutput! @fdc_generated(from: "Era", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Garment` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  garment_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Garment_Data!
+  ): Garment_KeyOutput! @fdc_generated(from: "Garment", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Bookmark` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  bookmark_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Bookmark_Data!]!
+  ): [Bookmark_KeyOutput!]! @fdc_generated(from: "Bookmark", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Contribution` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  contribution_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Contribution_Data!]!
+  ): [Contribution_KeyOutput!]! @fdc_generated(from: "Contribution", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Era` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  era_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Era_Data!]!
+  ): [Era_KeyOutput!]! @fdc_generated(from: "Era", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Garment` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  garment_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Garment_Data!]!
+  ): [Garment_KeyOutput!]! @fdc_generated(from: "Garment", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `Bookmark` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Bookmark`.
+  """
+  bookmark_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Bookmark_Data!
+  ): Bookmark_KeyOutput! @fdc_generated(from: "Bookmark", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Contribution` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Contribution`.
+  """
+  contribution_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Contribution_Data!
+  ): Contribution_KeyOutput! @fdc_generated(from: "Contribution", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Era` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Era`.
+  """
+  era_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Era_Data!
+  ): Era_KeyOutput! @fdc_generated(from: "Era", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Garment` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Garment`.
+  """
+  garment_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Garment_Data!
+  ): Garment_KeyOutput! @fdc_generated(from: "Garment", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `Bookmark` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Bookmark`.
+  """
+  bookmark_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Bookmark_Data!]!
+  ): [Bookmark_KeyOutput!]! @fdc_generated(from: "Bookmark", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Contribution` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Contribution`.
+  """
+  contribution_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Contribution_Data!]!
+  ): [Contribution_KeyOutput!]! @fdc_generated(from: "Contribution", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Era` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Era`.
+  """
+  era_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Era_Data!]!
+  ): [Era_KeyOutput!]! @fdc_generated(from: "Era", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Garment` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Garment`.
+  """
+  garment_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Garment_Data!]!
+  ): [Garment_KeyOutput!]! @fdc_generated(from: "Garment", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Bookmark` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Bookmark` or `null` if not found.
+  """
+  bookmark_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Bookmark_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Bookmark_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Bookmark_Data!
+  ): Bookmark_KeyOutput @fdc_generated(from: "Bookmark", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Contribution` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Contribution` or `null` if not found.
+  """
+  contribution_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Contribution_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Contribution_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Contribution_Data!
+  ): Contribution_KeyOutput @fdc_generated(from: "Contribution", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Era` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Era` or `null` if not found.
+  """
+  era_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Era_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Era_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Era_Data!
+  ): Era_KeyOutput @fdc_generated(from: "Era", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Garment` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Garment` or `null` if not found.
+  """
+  garment_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Garment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Garment_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Garment_Data!
+  ): Garment_KeyOutput @fdc_generated(from: "Garment", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `Bookmark` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  bookmark_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Bookmark_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Bookmark_Data!
+  ): Int! @fdc_generated(from: "Bookmark", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Contribution` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  contribution_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Contribution_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Contribution_Data!
+  ): Int! @fdc_generated(from: "Contribution", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Era` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  era_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Era_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Era_Data!
+  ): Int! @fdc_generated(from: "Era", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Garment` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  garment_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Garment_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Garment_Data!
+  ): Int! @fdc_generated(from: "Garment", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `Bookmark` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  bookmark_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Bookmark_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Bookmark_FirstRow
+  ): Bookmark_KeyOutput @fdc_generated(from: "Bookmark", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Contribution` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  contribution_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Contribution_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Contribution_FirstRow
+  ): Contribution_KeyOutput @fdc_generated(from: "Contribution", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Era` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  era_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Era_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Era_FirstRow
+  ): Era_KeyOutput @fdc_generated(from: "Era", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Garment` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  garment_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Garment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Garment_FirstRow
+  ): Garment_KeyOutput @fdc_generated(from: "Garment", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Bookmark` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  bookmark_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Bookmark_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Bookmark", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Contribution` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  contribution_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Contribution_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Contribution", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Era` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  era_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Era_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Era", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Garment` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  garment_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Garment_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Garment", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+}

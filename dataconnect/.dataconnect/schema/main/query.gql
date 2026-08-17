@@ -1,0 +1,267 @@
+extend type Query {
+  """
+  ✨ Look up a single `Bookmark` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  bookmark(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Bookmark_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Bookmark_FirstRow
+  ): Bookmark @fdc_generated(from: "Bookmark", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Contribution` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  contribution(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Contribution_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Contribution_FirstRow
+  ): Contribution @fdc_generated(from: "Contribution", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Era` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  era(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Era_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Era_FirstRow
+  ): Era @fdc_generated(from: "Era", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Garment` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  garment(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Garment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Garment_FirstRow
+  ): Garment @fdc_generated(from: "Garment", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ List `Bookmark` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  bookmarks(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Bookmark_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Bookmark_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Bookmark_Having
+  ): [Bookmark!]! @fdc_generated(from: "Bookmark", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Contribution` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  contributions(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Contribution_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Contribution_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Contribution_Having
+  ): [Contribution!]! @fdc_generated(from: "Contribution", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Era` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  eras(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Era_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Era_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Era_Having
+  ): [Era!]! @fdc_generated(from: "Era", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Garment` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  garments(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Garment_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Garment_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Garment_Having
+  ): [Garment!]! @fdc_generated(from: "Garment", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+}
