@@ -30,7 +30,6 @@ fun AppNavGraph(
     galleryViewModel: GalleryViewModel = viewModel()
 ) {
     val authState = authViewModel.authState.value
-    val galleryState = galleryViewModel.galleryState.value
 
     NavHost(
         navController = navController,
@@ -45,7 +44,9 @@ fun AppNavGraph(
                     navController.navigate(Routes.REGISTER)
                 },
                 isLoading = authViewModel.authState.value.isLoading,
-                error = authViewModel.authState.value.error
+                error = authViewModel.authState.value.error,
+                isNetworkAvailable = authViewModel.authState.value.isNetworkAvailable,
+                onRetry = { authViewModel.checkNetwork() }
             )
         }
 
@@ -58,7 +59,9 @@ fun AppNavGraph(
                     navController.popBackStack()
                 },
                 isLoading = authViewModel.authState.value.isLoading,
-                error = authViewModel.authState.value.error
+                error = authViewModel.authState.value.error,
+                isNetworkAvailable = authViewModel.authState.value.isNetworkAvailable,
+                onRetry = { authViewModel.checkNetwork() }
             )
         }
 

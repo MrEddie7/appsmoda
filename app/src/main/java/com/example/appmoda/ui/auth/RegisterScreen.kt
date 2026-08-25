@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.WifiOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,7 +31,9 @@ fun RegisterScreen(
     onRegister: (String, String, String) -> Unit,
     onNavigateBack: () -> Unit,
     isLoading: Boolean,
-    error: String?
+    error: String?,
+    isNetworkAvailable: Boolean = true,
+    onRetry: (() -> Unit)? = null
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -77,6 +80,36 @@ fun RegisterScreen(
                     modifier = Modifier.padding(24.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
+                    if (!isNetworkAvailable) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFF3D1F1F)
+                            ),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.WifiOff,
+                                    contentDescription = null,
+                                    tint = Color(0xFFFF6B6B),
+                                    modifier = Modifier.size(20.dp)
+                                )
+                                Text(
+                                    text = "Sem conexao com a internet",
+                                    color = Color(0xFFFF6B6B),
+                                    fontSize = 13.sp
+                                )
+                            }
+                        }
+                    }
+
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
@@ -87,6 +120,7 @@ fun RegisterScreen(
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         singleLine = true,
+                        enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFFE94560),
                             unfocusedBorderColor = Color(0xFF444444),
@@ -94,7 +128,10 @@ fun RegisterScreen(
                             unfocusedTextColor = Color.White,
                             focusedLabelColor = Color(0xFFE94560),
                             unfocusedLabelColor = Color(0xFF888888),
-                            cursorColor = Color(0xFFE94560)
+                            cursorColor = Color(0xFFE94560),
+                            disabledTextColor = Color(0xFF666666),
+                            disabledBorderColor = Color(0xFF333333),
+                            disabledLabelColor = Color(0xFF555555)
                         )
                     )
 
@@ -120,6 +157,7 @@ fun RegisterScreen(
                             else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         singleLine = true,
+                        enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFFE94560),
                             unfocusedBorderColor = Color(0xFF444444),
@@ -127,7 +165,10 @@ fun RegisterScreen(
                             unfocusedTextColor = Color.White,
                             focusedLabelColor = Color(0xFFE94560),
                             unfocusedLabelColor = Color(0xFF888888),
-                            cursorColor = Color(0xFFE94560)
+                            cursorColor = Color(0xFFE94560),
+                            disabledTextColor = Color(0xFF666666),
+                            disabledBorderColor = Color(0xFF333333),
+                            disabledLabelColor = Color(0xFF555555)
                         )
                     )
 
@@ -143,6 +184,7 @@ fun RegisterScreen(
                             else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         singleLine = true,
+                        enabled = !isLoading,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFFE94560),
                             unfocusedBorderColor = Color(0xFF444444),
@@ -150,7 +192,10 @@ fun RegisterScreen(
                             unfocusedTextColor = Color.White,
                             focusedLabelColor = Color(0xFFE94560),
                             unfocusedLabelColor = Color(0xFF888888),
-                            cursorColor = Color(0xFFE94560)
+                            cursorColor = Color(0xFFE94560),
+                            disabledTextColor = Color(0xFF666666),
+                            disabledBorderColor = Color(0xFF333333),
+                            disabledLabelColor = Color(0xFF555555)
                         )
                     )
 
@@ -168,9 +213,10 @@ fun RegisterScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp),
-                        enabled = !isLoading,
+                        enabled = !isLoading && isNetworkAvailable,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFE94560)
+                            containerColor = Color(0xFFE94560),
+                            disabledContainerColor = Color(0xFF8B2232)
                         ),
                         shape = RoundedCornerShape(12.dp)
                     ) {
@@ -188,9 +234,35 @@ fun RegisterScreen(
                         }
                     }
 
+                    if (!isNetworkAvailable && onRetry != null) {
+                        OutlinedButton(
+                            onClick = onRetry,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                contentColor = Color(0xFFE94560)
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Icon(
+                                Icons.Default.WifiOff,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Tentar Novamente",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                    }
+
                     TextButton(
                         onClick = onNavigateBack,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !isLoading
                     ) {
                         Text(
                             text = "Ja tem conta? Fazer login",
