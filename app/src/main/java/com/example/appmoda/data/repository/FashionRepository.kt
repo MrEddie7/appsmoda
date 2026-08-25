@@ -299,7 +299,7 @@ object FashionRepository {
             id = "24",
             nome = "Camisa Hawaii",
             decada = "1970",
-            anoInicio = "1970",
+            anoInicio = 1970,
             anoFim = 1979,
             categoria = FashionCategory.ROUPAS,
             descricao = "Camisa de manga curta com estampa tropical, popular entre homens no verao dos anos 70.",
