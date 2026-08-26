@@ -80,6 +80,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 } else {
                     val exception = task.exception
                     val errorMessage = when {
+                        exception?.message?.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) == true ->
+                            "Erro de configuracao do Firebase: reCAPTCHA nao ativado/configurado no Console do Firebase."
                         exception?.message?.contains("network", ignoreCase = true) == true ->
                             "Erro de conexao. Verifique sua internet e tente novamente."
                         exception?.message?.contains("timeout", ignoreCase = true) == true ->
@@ -152,6 +154,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 } else {
                     val exception = task.exception
                     val errorMessage = when {
+                        exception?.message?.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) == true ->
+                            "Erro de configuracao do Firebase: reCAPTCHA nao ativado/configurado no Console do Firebase."
                         exception?.message?.contains("network", ignoreCase = true) == true ->
                             "Erro de conexao. Verifique sua internet e tente novamente."
                         exception?.message?.contains("timeout", ignoreCase = true) == true ->
@@ -208,6 +212,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun traduzirErro(msg: String): String {
         return when {
+            msg.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) ->
+                "Erro de configuracao do Firebase reCAPTCHA no Console."
             msg.contains("There is no user record") -> "Usuario nao encontrado"
             msg.contains("The password is invalid") -> "Senha incorreta"
             msg.contains("already in use") -> "Este email ja esta em uso"

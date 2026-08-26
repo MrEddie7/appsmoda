@@ -1,20 +1,21 @@
 {
   "project_info": {
-    "project_number": "000000000000",
-    "project_id": "placeholder-project-id",
-    "storage_bucket": "placeholder-project-id.appspot.com"
+    "project_number": "78997111233",
+    "project_id": "appmoda-1c8c5",
+    "storage_bucket": "appmoda-1c8c5.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+        "mobilesdk_app_id": "1:78997111233:android:da9eedf49128c6f7732f40",
         "android_client_info": {
-          "package_name": "com.example.appmoda"
+          "package_name": "com.eddie.appmoda"
         }
       },
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "placeholder-api-key"
+          "current_key": "AIzaSyDlxx2iMTMz_77krS4QsTByiDT0hoIU_Mg"
         }
       ],
       "services": {
