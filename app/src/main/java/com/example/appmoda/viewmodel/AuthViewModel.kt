@@ -30,6 +30,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     val authState: StateFlow<AuthState> = _authState
 
     init {
+        // Desativa a verificacao do reCAPTCHA para testes e desenvolvimento
+        auth.firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
+
         if (auth.currentUser != null) {
             _authState.value = AuthState(
                 isLoggedIn = true,
