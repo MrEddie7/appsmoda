@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.example.appmoda.util.NetworkUtils
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.Job
@@ -30,8 +33,16 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     val authState: StateFlow<AuthState> = _authState
 
     init {
-        // Desativa a verificacao do reCAPTCHA para testes e desenvolvimento
-        auth.firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
+        // Ajuste da conexao Firebase e tentativa de desativar reCAPTCHA para testes
+        try {
+            // Se estiver usando o Emulador do Firebase Auth, o reCAPTCHA e desativado automaticamente.
+            // Para usar o emulador, descomente a linha abaixo:
+            // auth.useEmulator("10.0.2.2", 9099)
+
+            auth.firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         if (auth.currentUser != null) {
             _authState.value = AuthState(
@@ -82,27 +93,10 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 } else {
                     val exception = task.exception
-                    val errorMessage = when {
-                        exception?.message?.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) == true ->
-                            "Erro de configuracao do Firebase: reCAPTCHA nao ativado/configurado no Console do Firebase."
-                        exception?.message?.contains("network", ignoreCase = true) == true ->
-                            "Erro de conexao. Verifique sua internet e tente novamente."
-                        exception?.message?.contains("timeout", ignoreCase = true) == true ->
-                            "Tempo esgotado. Verifique sua conexao e tente novamente."
-                        exception?.message?.contains("unavailable", ignoreCase = true) == true ->
-                            "Servico temporariamente indisponivel. Tente novamente em alguns instantes."
-                        exception?.message?.contains("There is no user record") == true ->
-                            "Usuario nao encontrado"
-                        exception?.message?.contains("The password is invalid") == true ->
-                            "Senha incorreta"
-                        exception?.message?.contains("already in use") == true ->
-                            "Este email ja esta em uso"
-                        exception?.message?.contains("badly formatted") == true ->
-                            "Email invalido"
-                        exception?.message?.contains("too many requests", ignoreCase = true) == true ->
-                            "Muitas tentativas. Aguarde alguns minutos e tente novamente."
-                        exception?.message?.contains("admin-restricted", ignoreCase = true) == true ->
-                            "Acesso restrito. Entre em contato com o administrador."
+                    val errorMessage = when (exception) {
+                        is FirebaseAuthInvalidUserException -> "Usuario nao encontrado"
+                        is FirebaseAuthInvalidCredentialsException -> "Senha incorreta ou email invalido"
+                        is FirebaseAuthUserCollisionException -> "Este email ja esta em uso"
                         else -> traduzirErro(exception?.message ?: "Erro ao fazer login")
                     }
                     _authState.value = _authState.value.copy(
@@ -156,27 +150,9 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 } else {
                     val exception = task.exception
-                    val errorMessage = when {
-                        exception?.message?.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) == true ->
-                            "Erro de configuracao do Firebase: reCAPTCHA nao ativado/configurado no Console do Firebase."
-                        exception?.message?.contains("network", ignoreCase = true) == true ->
-                            "Erro de conexao. Verifique sua internet e tente novamente."
-                        exception?.message?.contains("timeout", ignoreCase = true) == true ->
-                            "Tempo esgotado. Verifique sua conexao e tente novamente."
-                        exception?.message?.contains("unavailable", ignoreCase = true) == true ->
-                            "Servico temporariamente indisponivel. Tente novamente em alguns instantes."
-                        exception?.message?.contains("There is no user record") == true ->
-                            "Usuario nao encontrado"
-                        exception?.message?.contains("The password is invalid") == true ->
-                            "Senha incorreta"
-                        exception?.message?.contains("already in use") == true ->
-                            "Este email ja esta em uso"
-                        exception?.message?.contains("badly formatted") == true ->
-                            "Email invalido"
-                        exception?.message?.contains("too many requests", ignoreCase = true) == true ->
-                            "Muitas tentativas. Aguarde alguns minutos e tente novamente."
-                        exception?.message?.contains("admin-restricted", ignoreCase = true) == true ->
-                            "Acesso restrito. Entre em contato com o administrador."
+                    val errorMessage = when (exception) {
+                        is FirebaseAuthUserCollisionException -> "Este email ja esta em uso"
+                        is FirebaseAuthInvalidCredentialsException -> "Email invalido ou mal formatado"
                         else -> traduzirErro(exception?.message ?: "Erro ao criar conta")
                     }
                     _authState.value = _authState.value.copy(
@@ -217,25 +193,14 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         return when {
             msg.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) ->
                 "Erro de configuracao do Firebase reCAPTCHA no Console."
-            msg.contains("There is no user record") -> "Usuario nao encontrado"
-            msg.contains("The password is invalid") -> "Senha incorreta"
-            msg.contains("already in use") -> "Este email ja esta em uso"
-            msg.contains("badly formatted") -> "Email invalido"
-            msg.contains("network error", ignoreCase = true) ->
-                "Erro de conexao com a internet"
-            msg.contains("connection", ignoreCase = true) ->
-                "Falha na conexao. Verifique sua internet."
-            msg.contains("timeout", ignoreCase = true) ->
-                "Tempo esgotado. Tente novamente."
-            msg.contains("unavailable", ignoreCase = true) ->
-                "Servico indisponivel. Tente novamente em instantes."
-            msg.contains("quota", ignoreCase = true) ->
-                "Limite de uso atingido. Aguarde e tente novamente."
-            msg.contains("disabled", ignoreCase = true) ->
-                "Conta desativada. Entre em contato com o suporte."
-            msg.contains("invalid", ignoreCase = true) && msg.contains("credential", ignoreCase = true) ->
-                "Credenciais invalidas. Verifique email e senha."
-            else -> "Erro inesperado. Tente novamente."
+            msg.contains("already in use", ignoreCase = true) || msg.contains("collision", ignoreCase = true) -> 
+                "Este email ja esta em uso. Tente fazer login."
+            msg.contains("There is no user record", ignoreCase = true) -> "Usuario nao encontrado"
+            msg.contains("password is invalid", ignoreCase = true) -> "Senha incorreta"
+            msg.contains("badly formatted", ignoreCase = true) -> "Email invalido"
+            msg.contains("network error", ignoreCase = true) -> "Erro de conexao com a internet"
+            msg.contains("too many requests", ignoreCase = true) -> "Muitas tentativas. Aguarde um pouco."
+            else -> "Erro: $msg"
         }
     }
 

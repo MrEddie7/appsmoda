@@ -1,6 +1,9 @@
 package com.example.appmoda.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -29,7 +32,17 @@ fun AppNavGraph(
     authViewModel: AuthViewModel = viewModel(),
     galleryViewModel: GalleryViewModel = viewModel()
 ) {
-    val authState = authViewModel.authState.value
+    val authState by authViewModel.authState.collectAsState()
+    val galleryState by galleryViewModel.galleryState.collectAsState()
+
+    LaunchedEffect(authState.isLoggedIn) {
+        if (authState.isLoggedIn) {
+            navController.navigate(Routes.GALLERY) {
+                popUpTo(0) { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
 
     NavHost(
         navController = navController,
@@ -41,11 +54,12 @@ fun AppNavGraph(
                     authViewModel.login(email, password)
                 },
                 onNavigateToRegister = {
+                    authViewModel.clearError()
                     navController.navigate(Routes.REGISTER)
                 },
-                isLoading = authViewModel.authState.value.isLoading,
-                error = authViewModel.authState.value.error,
-                isNetworkAvailable = authViewModel.authState.value.isNetworkAvailable,
+                isLoading = authState.isLoading,
+                error = authState.error,
+                isNetworkAvailable = authState.isNetworkAvailable,
                 onRetry = { authViewModel.checkNetwork() }
             )
         }
@@ -56,18 +70,19 @@ fun AppNavGraph(
                     authViewModel.register(email, password, confirmPassword)
                 },
                 onNavigateBack = {
+                    authViewModel.clearError()
                     navController.popBackStack()
                 },
-                isLoading = authViewModel.authState.value.isLoading,
-                error = authViewModel.authState.value.error,
-                isNetworkAvailable = authViewModel.authState.value.isNetworkAvailable,
+                isLoading = authState.isLoading,
+                error = authState.error,
+                isNetworkAvailable = authState.isNetworkAvailable,
                 onRetry = { authViewModel.checkNetwork() }
             )
         }
 
         composable(Routes.GALLERY) {
             GalleryScreen(
-                galleryState = galleryViewModel.galleryState.value,
+                galleryState = galleryState,
                 onSelectDecada = { galleryViewModel.selectDecada(it) },
                 onSelectCategoria = { galleryViewModel.selectCategoria(it) },
                 onSearch = { galleryViewModel.search(it) },
