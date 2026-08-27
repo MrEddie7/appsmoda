@@ -59,7 +59,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun login(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) {
+        val cleanEmail = email.trim()
+        if (cleanEmail.isBlank() || password.isBlank()) {
             _authState.value = _authState.value.copy(error = "Preencha todos os campos")
             return
         }
@@ -82,21 +83,38 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
         startTimeout()
 
-        auth.signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(cleanEmail, password)
             .addOnCompleteListener { task ->
                 cancelTimeout()
                 if (task.isSuccessful) {
                     _authState.value = AuthState(
                         isLoggedIn = true,
-                        email = auth.currentUser?.email ?: "",
+                        email = auth.currentUser?.email ?: cleanEmail,
                         isNetworkAvailable = true
                     )
                 } else {
                     val exception = task.exception
-                    val errorMessage = when (exception) {
-                        is FirebaseAuthInvalidUserException -> "Usuario nao encontrado"
-                        is FirebaseAuthInvalidCredentialsException -> "Senha incorreta ou email invalido"
-                        is FirebaseAuthUserCollisionException -> "Este email ja esta em uso"
+                    val errorMessage = when {
+                        exception?.message?.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) == true ->
+                            "Erro de configuracao do Firebase: reCAPTCHA nao ativado/configurado no Console do Firebase."
+                        exception?.message?.contains("network", ignoreCase = true) == true ->
+                            "Erro de conexao. Verifique sua internet e tente novamente."
+                        exception?.message?.contains("timeout", ignoreCase = true) == true ->
+                            "Tempo esgotado. Verifique sua conexao e tente novamente."
+                        exception?.message?.contains("unavailable", ignoreCase = true) == true ->
+                            "Servico temporariamente indisponivel. Tente novamente em alguns instantes."
+                        exception?.message?.contains("There is no user record") == true ->
+                            "Usuario nao encontrado"
+                        exception?.message?.contains("The password is invalid") == true ->
+                            "Senha incorreta"
+                        exception?.message?.contains("already in use") == true ->
+                            "Este email ja esta em uso"
+                        exception?.message?.contains("badly formatted") == true ->
+                            "Email invalido"
+                        exception?.message?.contains("too many requests", ignoreCase = true) == true ->
+                            "Muitas tentativas. Aguarde alguns minutos e tente novamente."
+                        exception?.message?.contains("admin-restricted", ignoreCase = true) == true ->
+                            "Acesso restrito. Entre em contato com o administrador."
                         else -> traduzirErro(exception?.message ?: "Erro ao fazer login")
                     }
                     _authState.value = _authState.value.copy(
@@ -108,7 +126,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun register(email: String, password: String, confirmPassword: String) {
-        if (email.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
+        val cleanEmail = email.trim()
+        if (cleanEmail.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
             _authState.value = _authState.value.copy(error = "Preencha todos os campos")
             return
         }
@@ -139,20 +158,38 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
         startTimeout()
 
-        auth.createUserWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(cleanEmail, password)
             .addOnCompleteListener { task ->
                 cancelTimeout()
                 if (task.isSuccessful) {
                     _authState.value = AuthState(
                         isLoggedIn = true,
-                        email = auth.currentUser?.email ?: "",
+                        email = auth.currentUser?.email ?: cleanEmail,
                         isNetworkAvailable = true
                     )
                 } else {
                     val exception = task.exception
-                    val errorMessage = when (exception) {
-                        is FirebaseAuthUserCollisionException -> "Este email ja esta em uso"
-                        is FirebaseAuthInvalidCredentialsException -> "Email invalido ou mal formatado"
+                    val errorMessage = when {
+                        exception?.message?.contains("CONFIGURATION_NOT_FOUND", ignoreCase = true) == true ->
+                            "Erro de configuracao do Firebase: reCAPTCHA nao ativado/configurado no Console do Firebase."
+                        exception?.message?.contains("network", ignoreCase = true) == true ->
+                            "Erro de conexao. Verifique sua internet e tente novamente."
+                        exception?.message?.contains("timeout", ignoreCase = true) == true ->
+                            "Tempo esgotado. Verifique sua conexao e tente novamente."
+                        exception?.message?.contains("unavailable", ignoreCase = true) == true ->
+                            "Servico temporariamente indisponivel. Tente novamente em alguns instantes."
+                        exception?.message?.contains("There is no user record") == true ->
+                            "Usuario nao encontrado"
+                        exception?.message?.contains("The password is invalid") == true ->
+                            "Senha incorreta"
+                        exception?.message?.contains("already in use") == true ->
+                            "Este email ja esta em uso"
+                        exception?.message?.contains("badly formatted") == true ->
+                            "Email invalido"
+                        exception?.message?.contains("too many requests", ignoreCase = true) == true ->
+                            "Muitas tentativas. Aguarde alguns minutos e tente novamente."
+                        exception?.message?.contains("admin-restricted", ignoreCase = true) == true ->
+                            "Acesso restrito. Entre em contato com o administrador."
                         else -> traduzirErro(exception?.message ?: "Erro ao criar conta")
                     }
                     _authState.value = _authState.value.copy(
