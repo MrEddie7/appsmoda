@@ -12,11 +12,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.appmoda.data.model.FashionItem
 import com.example.appmoda.ui.components.getCategoryColor
 import com.example.appmoda.ui.components.getCategoryIcon
@@ -70,14 +73,24 @@ fun DetailScreen(
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Header com gradiente
+            // Imagem de Destaque
+            AsyncImage(
+                model = item.imageUrl,
+                contentDescription = item.nome,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                contentScale = ContentScale.Crop
+            )
+
+            // Header com gradiente e informações básicas
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
                         Brush.verticalGradient(
                             colors = listOf(
-                                getCategoryColor(item.categoria).copy(alpha = 0.3f),
+                                getCategoryColor(item.categoria).copy(alpha = 0.2f),
                                 Color(0xFF121223)
                             )
                         )
@@ -124,7 +137,7 @@ fun DetailScreen(
                             modifier = Modifier.size(16.dp)
                         )
                         Text(
-                            text = item.paisOrigem,
+                            text = "Origem: ${item.paisOrigem}",
                             fontSize = 13.sp,
                             color = Color(0xFF888888)
                         )
@@ -136,7 +149,7 @@ fun DetailScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(horizontal = 16.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Color(0xFF1E2A4A)
                 ),
@@ -146,7 +159,7 @@ fun DetailScreen(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "Descricao",
+                        text = "Descrição",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color(0xFFE94560)
@@ -161,11 +174,13 @@ fun DetailScreen(
                 }
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Detalhes
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                    .padding(horizontal = 16.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Color(0xFF1E2A4A)
                 ),
@@ -175,7 +190,7 @@ fun DetailScreen(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "Detalhes Historicos",
+                        text = "Detalhes Históricos",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color(0xFF533483)
@@ -190,7 +205,7 @@ fun DetailScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
